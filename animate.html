@@ -1,29 +1,63 @@
-<canvas id="myCanvas" width="200" height="200"></canvas>
+<canvas id="myCanvas" width="10000" height="10000"></canvas>
 <script>
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
     
-    let points = [
-    { x: 50, y: 50 },    // Top-left
-    { x: 150, y: 50 },   // Top-right
-    { x: 150, y: 100 },  // Bottom-right
-    { x: 50, y: 100 }    // Bottom-left
-    ];
+    let figure = [
+  { x: 15, y: 15 },
+  { x: 85, y: 15 },
+  { x: 85, y: 80 },
+  { x: 15, y: 80 }
+];
 
   function draw(){ // Draw dots at each point
   ctx.fillStyle = 'red';
-  points.forEach(pt => {
+  figure.forEach(pt => {
     ctx.beginPath();
     ctx.arc(pt.x,pt.y,2, 0, 2 * Math.PI);
     ctx.fill();
   });
 }
-  function rotate(matrix){
-    for (let o = 0; i < 360 ; i += 1){
+function getCenter(figure) {
+  let sumX = 0, sumY = 0;
+  for (let p of figure) {
+    sumX += p.x;
+    sumY += p.y;
+  }
+  return { x: sumX / figure.length, y: sumY / figure.length };
+}
 
-    }
+function rotate(figure, angle) {
+  const center = getCenter(figure);
+  const sin = Math.sin(angle);
+  const cos = Math.cos(angle);
 
-    }
+  for (let dot of figure) {
+    const dx = dot.x - center.x;
+    const dy = dot.y - center.y;
+
+    const x = dx * cos - dy * sin;
+    const y = dx * sin + dy * cos;
+
+    dot.x = x + center.x;
+    dot.y = y + center.y;
+  }
+}
+    
+  
+    
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  rotate(figure, 0.01); // Rotate by small angle
+  draw();
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+    
+
+
 
   
     
