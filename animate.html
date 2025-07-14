@@ -3,20 +3,28 @@
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
     
-    const points = [
+    let points = [
     { x: 50, y: 50 },    // Top-left
     { x: 150, y: 50 },   // Top-right
     { x: 150, y: 100 },  // Bottom-right
     { x: 50, y: 100 }    // Bottom-left
     ];
 
-    // Draw dots at each point
+  function draw(){ // Draw dots at each point
   ctx.fillStyle = 'red';
   points.forEach(pt => {
     ctx.beginPath();
     ctx.arc(pt.x,pt.y,2, 0, 2 * Math.PI);
     ctx.fill();
+  });
+}
+  function rotate(matrix){
+    for (let o = 0; i < 360 ; i += 1){
 
-  })
+    }
+
+    }
+
+  
     
   </script>
